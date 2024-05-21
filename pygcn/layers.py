@@ -29,8 +29,8 @@ class GraphConvolution(Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, input, adj):
-        support = torch.mm(input, self.weight)
-        output = torch.spmm(adj, support)
+        support = torch.mm(input, self.weight)  # features matrix * weight matrix
+        output = torch.spmm(adj, support)   # sparse adj matrix after norm * prev result
         if self.bias is not None:
             return output + self.bias
         else:
